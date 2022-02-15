@@ -5,34 +5,62 @@ import java.util.Locale;
 import java.util.Scanner;
 
 public class NumberGuesser {
+    static class badChoiceException extends Exception {
+        public badChoiceException(String message) {
+            super(message);
+        }
+    }
+
+    static class numberChoice {
+        public int whichNum() throws badChoiceException {
+            Scanner input = new Scanner(System.in);
+            if (input.hasNextInt()) {
+                int guess = input.nextInt();
+                return guess;
+            } else {
+                throw new badChoiceException("That was an invalid choice. Choose a NUMBER between 1 and 20.");
+            }
+        }
+    }
+
+    static class newGame {
+        public String playAgain() throws badChoiceException {
+            String play = String.valueOf(new Scanner(System.in).next().charAt(0)).toLowerCase(Locale.ROOT);
+            if (!play.equals("y") && !play.equals("n")) {
+                throw new badChoiceException("Pardon? I didn't understand that.");
+            } else {
+                return play;
+            }
+        }
+    }
+
     public static void main(String[] args) {
         System.out.println("Hello there. What's your name?");
         String name = new Scanner(System.in).next();
+        int guess = 0, guessCount = 0, secretNum = randomizer();
         System.out.println("Welcome, " + name + "! I'm thinking of a number between 1 and 20. What is it?");
-        numberGuesser();
+        numberGuesser(guess, guessCount, secretNum);
     }
 
-    public static void numberGuesser() {
-        Scanner input = new Scanner(System.in);
-        int guess = 0, guessCount = 0, secretNum = randomizer();
-        //System.out.println("Sanity check - Guesser " + secretNum); // To see the secret number
-        do {
-            if (input.hasNextInt()) {
-                guess = input.nextInt();
+    public static void numberGuesser(int guess, int guessCount, int secretNum) {
+        numberChoice thatNumber = new numberChoice();
+        System.out.println("Sanity check - Guesser " + secretNum); // To see the secret number
+        do{
+            try {
                 guessCount++;
+                guess = thatNumber.whichNum();
                 if (guess > secretNum) {
                     System.out.println("Too high. Guess again.");
                 } else if (guess < secretNum) {
                     System.out.println("Too low. Guess again.");
                 }
-            } else {
-                System.out.println("That's not a number. Guess again.");
-                input.next();
+            } catch (badChoiceException e) {
+                System.out.println(e.getMessage());
+                numberGuesser(guess, guessCount, secretNum);
             }
-        } while(guess !=secretNum);
-        System.out.println("You got it! The number was " + secretNum + ". " + "It took you " + guessCount + " guesses." + "Would you like to play again? (y/n)");
+        } while (guess != secretNum);
+        System.out.println("You got it! The number was " + secretNum + ". " + "It took you " + guessCount + " guesses. Would you like to play again? (y/n)");
         again();
-
     }
 
     public static int randomizer() {
@@ -41,19 +69,20 @@ public class NumberGuesser {
     }
 
     public static void again() {
-        String choice = String.valueOf(new Scanner(System.in).next().charAt(0));
-        do {
-            switch (choice.toLowerCase(Locale.ROOT)) {
+        newGame anotherRound = new newGame();
+        try {
+            switch (anotherRound.playAgain()) {
                 case "y":
-                    System.out.println("Let's play again! What number is it this time?");
-                    numberGuesser();
+                    System.out.println("Ok! What number is it this time?");
+                    int guess = 0, guessCount = 0, secretNum = randomizer();
+                    numberGuesser(guess, guessCount, secretNum);
                 case "n":
-                    System.out.println("Ok, see you another time.");
+                    System.out.println("Alright, another time then.");
                     System.exit(0);
-                default:
-                    System.out.println("Sorry, didn't quite catch that?");
-                    again();
             }
-        } while (true);
+        } catch (badChoiceException e) {
+            System.out.println(e.getMessage());
+            again();
+        }
     }
 }
