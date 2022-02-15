@@ -5,6 +5,11 @@ import java.util.Locale;
 import java.util.Scanner;
 
 public class NumberGuesser {
+    static class badChoiceException extends Exception {
+        public badChoiceException(String message) {
+            super(message);
+        }
+    }
     public static void main(String[] args) {
         System.out.println("Hello there. What's your name?");
         String name = new Scanner(System.in).next();
