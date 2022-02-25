@@ -20,18 +20,20 @@ class DragonsTest {
     @DisplayName("Intro text test")
     @Test
     void introText() {
-        System.out.println("Testing");
+        System.out.println("Testing Intro text");
     }
 
     @DisplayName("Dragon Caves test")
     @Test
     void dragonCaves() {
-        assertEquals(1, 1, "Should be 1");
+        System.out.println("Testing Dragon Caves");
+        assertEquals(1, 2, "Should be 1");
     }
 
     @DisplayName("Play again test")
     @Test
     void again() {
+        System.out.println("Testing Play again");
         assertEquals('y', 'y', "Should be y");
     }
 
