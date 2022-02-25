@@ -25,18 +25,18 @@ public class Dragons {
 
     public static void dragonCaves() {
         System.out.println("\n Which cave will you go in to? (1 or 2?)");
-        String thatCave = String.valueOf(new Scanner(System.in).next().charAt(0)).toLowerCase(Locale.ROOT);
+        int thatCave = (int) new Scanner(System.in).next().charAt(0);
         try {
             // First validate the input
-            if (!thatCave.equals("1") && !thatCave.equals("2")) {
+            if (thatCave != 1 && thatCave!=2) {
                 throw new badChoiceException("That is not an option available to you.");
             } else {
                 // If it's good, move on to the results
                 switch (thatCave) {
-                    case "1": // Friendly Dragon
+                    case 1: // Friendly Dragon
                         System.out.println("Gleeful to see you, they share their horde!");
                         again();
-                    case "2": // Hungry Dragon
+                    case 2: // Hungry Dragon
                         System.out.println("Delighted to see you, they invite you inside...their stomach!");
                         again();
                 }
@@ -49,16 +49,17 @@ public class Dragons {
 
     public static void again() { // Just like the previous block
         System.out.println("Explore a different cave?");
-        String play = String.valueOf(new Scanner(System.in).next().charAt(0)).toLowerCase(Locale.ROOT);
+        char play = new Scanner(System.in).next().charAt(0);
+        Character.toLowerCase(play);
         try {
-            if (!play.equals("y") && !play.equals("n")) {
+            if (play != 'y' && play != 'n') {
                 throw new badChoiceException("Pardon? I didn't understand that.");
             } else {
                 switch (play) {
-                    case "y":
+                    case 'y':
                         System.out.println("Let's try again...");
                         dragonCaves();
-                    case "n":
+                    case 'n':
                         System.out.println("That's a wise decision.");
                         System.exit(0);
                 }

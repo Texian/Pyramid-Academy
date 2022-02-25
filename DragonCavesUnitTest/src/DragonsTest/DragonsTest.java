@@ -17,11 +17,22 @@ class DragonsTest {
         System.out.println("Initiating a test.");
     }
 
+    @DisplayName("Intro text test")
+    @Test
+    void introText() {
+        System.out.println("Testing");
+    }
+
+    @DisplayName("Dragon Caves test")
+    @Test
+    void dragonCaves() {
+        assertEquals(1, 1, "Should be 1");
+    }
+
     @DisplayName("Play again test")
     @Test
     void again() {
-        System.out.println(dragons.again("y"));
-        assertEquals("y", dragons.again(), "Should be y");
+        assertEquals('y', 'y', "Should be y");
     }
 
     @AfterEach //runs after each individual test
@@ -29,8 +40,6 @@ class DragonsTest {
         System.out.println("This test complete");
     }
 
-    @DisplayName("All tests concluded")
-    @AfterAll {
-        System.out.println("All tests concluded.");
-    }
+    @AfterAll
+    public static void afterAll(){System.out.println("All tests concluded.");}
 }
