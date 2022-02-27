@@ -9,12 +9,10 @@ public class NumberGuesser {
     }
 
     public static void main(String[] args) {
-        NumberGuesser start = new NumberGuesser();
         NumberGuesser game = new NumberGuesser();
-        NumberGuesser again = new NumberGuesser();
-        start.gameStart();
+        game.gameStart();
         game.numberGuesser();
-        again.again();
+        game.again();
     }
     Player player = new Player();
     void gameStart() {

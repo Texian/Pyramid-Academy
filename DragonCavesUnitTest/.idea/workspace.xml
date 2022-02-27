@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="39de5a76-a87a-47c5-abe0-11b6ff53e4c0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../NumberGuesserUnitTest/src/Java/Player.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../NumberGuesserUnitTest/src/Test/NumberGuesserTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../NumberGuesserUnitTest/src/Java/NumberGuesser.java" beforeDir="false" afterPath="$PROJECT_DIR$/../NumberGuesserUnitTest/src/Java/NumberGuesser.java" afterDir="false" />
-    </list>
+    <list default="true" id="39de5a76-a87a-47c5-abe0-11b6ff53e4c0" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
