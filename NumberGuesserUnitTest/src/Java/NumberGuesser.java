@@ -9,12 +9,15 @@ public class NumberGuesser {
     }
 
     public static void main(String[] args) {
-        gameStart();
-        numberGuesser();
-        again();
+        NumberGuesser start = new NumberGuesser();
+        NumberGuesser game = new NumberGuesser();
+        NumberGuesser again = new NumberGuesser();
+        start.gameStart();
+        game.numberGuesser();
+        again.again();
     }
 
-    static void gameStart() {
+    void gameStart() {
         System.out.println("Hello there. What's your name?");
         var name = new Scanner(System.in).next();
         Player player;
@@ -23,13 +26,13 @@ public class NumberGuesser {
         System.out.println("Welcome, " + name + "! I'm thinking of a number between 1 and 20. What is it?");
     }
 
-    static void numberGuesser() {
+    void numberGuesser() {
         int guessCount = 0, secretNum = randomizer();
         int guess;
-        System.out.println("Sanity check - Guesser " + secretNum); // To see the secret number
         do {
+            System.out.println("Sanity check - Guesser " + secretNum); // To see the secret number
             guessCount++;
-            guess = new Scanner(System.in).next().charAt(0);
+            guess = new Scanner(System.in).nextInt();
             if (guess > secretNum) {
                 System.out.println("Too high. Guess again.");
             } else if (guess < secretNum) {
@@ -39,7 +42,7 @@ public class NumberGuesser {
         System.out.println("You got it! The number was " + secretNum + ". " + "It took you " + guessCount + " guesses. Would you like to play again? (y/n)");
     }
 
-    public static void again() {
+    void again() {
         String choice = String.valueOf(new Scanner(System.in).next().charAt(0)).toLowerCase(Locale.ROOT);
         switch (choice) {
             case "y":
