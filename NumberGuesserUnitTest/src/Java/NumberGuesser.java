@@ -16,12 +16,10 @@ public class NumberGuesser {
         game.numberGuesser();
         again.again();
     }
-
+    Player player = new Player();
     void gameStart() {
         System.out.println("Hello there. What's your name?");
         var name = new Scanner(System.in).next();
-        Player player;
-        player = new Player();
         player.setName(name);
         System.out.println("Welcome, " + name + "! I'm thinking of a number between 1 and 20. What is it?");
     }
@@ -33,6 +31,7 @@ public class NumberGuesser {
             System.out.println("Sanity check - Guesser " + secretNum); // To see the secret number
             guessCount++;
             guess = new Scanner(System.in).nextInt();
+            player.setGuess(guess);
             if (guess > secretNum) {
                 System.out.println("Too high. Guess again.");
             } else if (guess < secretNum) {
