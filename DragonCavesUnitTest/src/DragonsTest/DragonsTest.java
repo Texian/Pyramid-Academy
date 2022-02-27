@@ -3,7 +3,7 @@ import org.junit.jupiter.api.*;
 
 class DragonsTest {
 
-    Dragons dragons;
+    Player player;
 
     @BeforeAll
     public static void beforeAll() {
@@ -13,28 +13,18 @@ class DragonsTest {
     @BeforeEach
     void setUp() {
         //instantiates a new dragons object for each individual test
-        dragons = new Dragons();
+        player = new Player();
         System.out.println("Initiating a test.");
     }
 
-    @DisplayName("Intro text test")
+    @DisplayName("Tests")
     @Test
-    void introText() {
-        System.out.println("Testing Intro text");
-    }
-
-    @DisplayName("Dragon Caves test")
-    @Test
-    void dragonCaves() {
-        System.out.println("Testing Dragon Caves");
-        assertEquals(1, 2, "Should be 1");
-    }
-
-    @DisplayName("Play again test")
-    @Test
-    void again() {
-        System.out.println("Testing Play again");
-        assertEquals('y', 'y', "Should be y");
+    void groupTests() {
+        player.setGuess(1);
+        player.setAgain("y");
+        assertAll("Testing inputs",
+                () -> assertEquals(1, player.getGuess(), "Not a valid choice"),
+                () -> assertEquals("y", player.getAgain(), "Not a valid input"));
     }
 
     @AfterEach //runs after each individual test

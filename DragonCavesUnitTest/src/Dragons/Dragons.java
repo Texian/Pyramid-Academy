@@ -8,10 +8,13 @@ public class Dragons {
         }
     }
 
+    Player player;
     public static void main(String[] args) {
         introText();  // Start
-        dragonCaves(); // Game
-        again(); // Replay
+        Dragons game = new Dragons();
+        game.dragonCaves(); // Game
+        Dragons again = new Dragons();
+        again.again(); // Replay
     }
 
     public static void introText() {
@@ -23,9 +26,10 @@ public class Dragons {
         System.out.println(introText);
     }
 
-    public static void dragonCaves() {
+    public void dragonCaves() {
         System.out.println("\n Which cave will you go in to? (1 or 2?)");
-        int thatCave = (int) new Scanner(System.in).next().charAt(0);
+        int thatCave = (int) new Scanner(System.in).nextInt();
+        player = new Player();
         try {
             // First validate the input
             if (thatCave != 1 && thatCave!=2) {
@@ -47,10 +51,9 @@ public class Dragons {
         }
     }
 
-    public static void again() { // Just like the previous block
+    public void again() { // Just like the previous block
         System.out.println("Explore a different cave?");
         char play = new Scanner(System.in).next().charAt(0);
-        Character.toLowerCase(play);
         try {
             if (play != 'y' && play != 'n') {
                 throw new badChoiceException("Pardon? I didn't understand that.");
