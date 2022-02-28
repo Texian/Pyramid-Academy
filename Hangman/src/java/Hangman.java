@@ -7,14 +7,20 @@ public class Hangman {
 
     // Importing the word list from a file
     public ArrayList<String[]> wordList() throws IOException {
-        String file = "src/nouns-in-english.csv";
         ArrayList<String[]> wordList = new ArrayList<>();
-        Scanner scanner = new Scanner(new File(file));
-        while (scanner.hasNext()) {
-            wordList.add(scanner.nextLine().split(","));
+        try {
+            String file = "src/nouns-in-english.csv";
+            Scanner scanner = new Scanner(new File(file));
+            while (scanner.hasNext()) {
+                wordList.add(scanner.nextLine().split(","));
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Word file not found: " + e);
+            return null;
         }
         return wordList;
     }
+
 
     public static void main(String[] args) throws IOException {
         // Instantiating the class, adding letters and words to arrays
@@ -37,8 +43,7 @@ public class Hangman {
     public static String gameStart(ArrayList<String[]> words) throws IOException {
         int size = words.size();
         int random = (int) (Math.random() * size) + 1;
-        String word = words.get(random)[0];
-        return word;
+        return words.get(random)[0];
     }
 
     public void gameLoop(char[] wordArray, char[] letters) {
