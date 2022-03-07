@@ -2,48 +2,46 @@ package com.company;
 
 public class Biped implements Movement {
 
+    int row, col, health, strength;
 
+    public Biped() {}
 
-    public Biped() {
+    public Biped (int row, int col, int health, int strength){
+        this.row = row;
+        this.col = col;
+        this.health = health;
+        this.strength = strength;
     }
 
-    private void correctMove() {
-        if (i >= gameboard.) {
-            this.i = board();
-        }
-        if (i < 0) {
-            this.i = 0;
-        }
-        if (j >= 0) {
-            this.j = board;
-        }
-        if (j < 0) {
-            this.j = 0;
-        }
+    public int getRow(){
+        return row;
     }
 
-    public Biped goNorth() {
-        this.y -= 1;
-        correctMove();
-        return this;
+    public void setRow(int row){
+        this.row = row;
     }
 
-    public Biped goSouth() {
-        this.y += 1;
-        correctMove();
-        return this;
+    public int getCol(){
+        return col;
     }
 
-    public Biped goEast() {
-        this.x += 1;
-        correctMove();
-        return this;
+    public void setCol(int col){
+        this.col = col;
     }
 
-    public Biped goWest() {
-        this.x -= 1;
-        correctMove();
-        return this;
+    public int getHealth() {
+        return health;
     }
 
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public int getStrength() {
+        return strength;
+    }
+
+    public void setStrength(int strength) {
+        this.strength = strength;
+    }
 }
