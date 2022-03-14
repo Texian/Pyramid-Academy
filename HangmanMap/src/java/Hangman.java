@@ -2,22 +2,30 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Hangman {
     static Hangman game = new Hangman();
-    Graphic graphic = new Graphic();
+    public static class Scoreboard {
+        public String name;
+        public int score;
+        public Scoreboard(String name, int score) {
+            this.name = name;
+            this.score = score;
+        }
+    }
 
     public static void main(String[] args) throws IOException {
-        game.intro();
-        game.gameLoop(); //Passing in the word as an array of characters, and letters
+        System.out.println("Welcome to Hangman! What's your name?");
+        String name = new Scanner(System.in).nextLine();
+        game.intro(name);
+        game.gameLoop(name); //Passing in the word as an array of characters, and letters
     }
 
     // Intro text, sanity check that proves the game is running
-    public void intro() {
-        System.out.println("Welcome to Hangman! What's your name?");
-        String name = new Scanner(System.in).nextLine();
+    public void intro(String name) {
         System.out.println("You know this game, " +name+ ":\n" +
                 "Guess the word one letter at a time.\n" +
                 "Guess right, it's revealed and you score some points.\n" +
@@ -40,62 +48,47 @@ public class Hangman {
         return null;
     }
 
-    public void gameLoop() throws IOException {
-        // List of guessed letters, and the word as a list of characters
-        ArrayList<Character> alphabet = new ArrayList<>(Collections.nCopies(26, '_'));
-        List<Character> wordArray = new ArrayList<>(Objects.requireNonNull(wordArray()));
-
-        // List of blanks for the word
+    public void gameLoop(String name) throws IOException {
         char blank = '_';
-        List<Character> wordBlanks = new ArrayList<>(Collections.nCopies(wordArray.size(), blank));
-        // Game loop initializations
+        int lives = 8;
         int score = 0;
         boolean win = false;
 
-        /* Generate a 60-character sized array with 60 different characters; example of stream generation
-        List<Person> persons = Stream.generate(Person::new)
-                .limit(60)
-                .collect(Collectors.toList()); */
+        ArrayList<Character> alphabet = new ArrayList<>(Collections.nCopies(26, '_'));
+        List<Character> wordArray = new ArrayList<>(Objects.requireNonNull(wordArray()));
+        List<Character> wordBlanks = new ArrayList<>(Collections.nCopies(wordArray.size(), blank));
+
+        Stream<Character> alphabetStream = alphabet.stream();
+        Stream<Character> wordArrayStream = wordArray.stream();
+        Stream<Character> wordBlanksStream = wordBlanks.stream();
 
         // Lone while loop to keep the game running
-        while (!win && !(graphic.lives >= 0)) {
+        while (!win && !(lives >= 0)) {
             //TODO Replace image and letters with actual images instead of ASCII
-            graphic.draw();
+
             System.out.println(wordBlanks);
             System.out.println(alphabet);
 
             System.out.println("What's your guess?");
-            char input = new Scanner(System.in).next().charAt(0);
-            List<Character> guess = new ArrayList<>(input);
+            char guess = new Scanner(System.in).next().charAt(0);
 
             // Checking for letter re-use
-            if (String.valueOf(alphabet).contains(guess.toString())) {
+            if (alphabet.stream().anyMatch(c -> c.equals(guess))) {
                 System.out.println("You've guessed that letter. Try again.");
             } else { // Else, that letter is added to the array
-                alphabet.stream()
-                        .map(guess::add);
+                alphabet.add(guess);
             }
 
             boolean matchFound = false;
             // Checking to see if the letter is in the word
-            wordArray.stream()
-                    .map(guess::contains)
-                    .collect(Collectors.toList());
-
-            for (int i = 0; i <= wordArray.size() - 1; i++) {
-                if (guess == wordArray.get(i)) {
-                    matchFound = true;
-                    wordBlanks[i] = guess;
-                }
-            }
-            if (matchFound) {
-                System.out.println("Correct!");
-                win = Arrays.equals(wordArray, wordBlanks);
+            if (wordArray.stream().anyMatch(c -> c.equals(guess))) {
+                wordBlanks.replaceAll(c -> guess);
+                score++;
+                win = wordBlanks.stream().allMatch(c -> c.equals(wordArray.get(c)));
             } else {
                 System.out.println("You guessed wrong!");
-                graphic.next();
+                images.next();
             }
-            ;
 
             // Endgame
             if (graphic.lives == -1) {
@@ -103,10 +96,17 @@ public class Hangman {
             } else {
                 System.out.println("Congratulations! guessed the word!");
             }
+            highScore(name, score);
             String word = String.valueOf(wordArray);
             System.out.println("The word was " + word + "\nAnd your final score is: " + score);
+
             again();
         }
+    }
+
+    private void highScore(String name, int score) {
+        name = name;
+        score = score;
     }
 
     void again() throws IOException {
