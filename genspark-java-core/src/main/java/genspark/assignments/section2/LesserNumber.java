@@ -5,6 +5,7 @@ import genspark.assignments.Assignment;
 public class LesserNumber implements Assignment {
     public int solution(int x, int y) {
         // ↓↓↓↓ your code goes here ↓↓↓↓
-        return 0;
+        int min = x < y ? x : y;
+        return min;
     }
 }

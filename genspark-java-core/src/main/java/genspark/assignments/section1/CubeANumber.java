@@ -5,6 +5,6 @@ import genspark.assignments.Assignment;
 public class CubeANumber implements Assignment {
     public int solution(int x){
         // ↓↓↓↓ your code goes here ↓↓↓↓
-        return 0;
+        return x*x*x;
     }
 }

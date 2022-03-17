@@ -6,6 +6,10 @@ import java.util.ArrayList;
 public class RetrieveRandomElmFromArrList implements Assignment {
     public Integer solution(ArrayList<Integer> arrList, int elm) {
         // ↓↓↓↓ your code goes here ↓↓↓↓
-        return 0;
+        try {
+            return arrList.get(elm);
+        } catch (Exception e) {
+            return 0;
+        }
     }
 }

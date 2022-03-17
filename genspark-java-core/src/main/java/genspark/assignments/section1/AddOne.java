@@ -5,6 +5,6 @@ import genspark.assignments.Assignment;
 public class AddOne implements Assignment {
     public int solution(int num){
         // ↓↓↓↓ your code goes here ↓↓↓↓
-        return 0;
+        return ++num;
     }
 }

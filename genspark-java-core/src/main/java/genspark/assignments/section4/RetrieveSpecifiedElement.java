@@ -6,6 +6,10 @@ import java.util.ArrayList;
 public class RetrieveSpecifiedElement implements Assignment {
     public int solution(ArrayList<Integer> list) {
         // ↓↓↓↓ your code goes here ↓↓↓↓
-        return 0;
+        try {
+            return list.get(0);
+        } catch (Exception e) {
+            return 0;
+        }
     }
 }

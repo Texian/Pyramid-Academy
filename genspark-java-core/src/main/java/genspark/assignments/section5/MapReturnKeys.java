@@ -7,6 +7,11 @@ import java.util.HashMap;
 public class MapReturnKeys implements Assignment {
     public ArrayList<String> solution(HashMap<String,Integer> map){
         // ↓↓↓↓ your code goes here ↓↓↓↓
-        return null;
+        if (map == null) {
+            return null;
+        }
+        ArrayList<String> keys = new ArrayList<>();
+        keys.addAll(map.keySet());
+        return keys;
     }
 }

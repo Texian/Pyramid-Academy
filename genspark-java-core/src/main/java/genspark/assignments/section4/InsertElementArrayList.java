@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class InsertElementArrayList implements Assignment {
     public ArrayList<Integer> solution(ArrayList<Integer> list) {
         // ↓↓↓↓ your code goes here ↓↓↓↓
-        return new ArrayList<>();
+        list.add(0,5);
+        return new ArrayList<>(list);
     }
 }
