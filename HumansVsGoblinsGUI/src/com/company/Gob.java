@@ -31,7 +31,7 @@ public class Gob extends Biped{
     }
 
     public String attack(Gob gob, Hume hume) {
-        int damage = (int) (Math.random() * strength) + 1;
+        int damage = (int) (Math.random() * gob.strength) + 1;
         hume.health -= damage;
         return "Gob attacks " + hume.iconHume() + " for " + damage + " damage.";
     }
