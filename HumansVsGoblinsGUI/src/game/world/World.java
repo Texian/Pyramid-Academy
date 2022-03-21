@@ -19,9 +19,9 @@ public class World {
         this.room = new Room[data.length][data[0].length];
         for(int i = 0; i < LevelGenerator.WORLD_SIZE; i++){
             for(int j = 0; j < LevelGenerator.WORLD_SIZE; j++){
-                for(RoomData data : Init.ROOM) {
-                    if(data.getExit().equals(data.[i][j]))
-                    this.room[i][j] = new Room(data);
+                for(RoomData roomData : Init.ROOM) {
+                    if(roomData.getExit().equals(data[i][j]))
+                    this.room[i][j] = new Room(roomData);
                 }
             }
         }
@@ -36,7 +36,7 @@ public class World {
         return room[currX][currY];
     }
 
-    public Room getRandom() {
+    public Room getRandomRoom() {
         return room[MathHelper.randomInt(LevelGenerator.WORLD_SIZE)][MathHelper.randomInt(LevelGenerator.WORLD_SIZE)];
     }
 

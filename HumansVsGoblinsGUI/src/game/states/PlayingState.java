@@ -16,13 +16,13 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public class PlayingState extends GameState {
-    private LevelGenerator levelg;
+    private LevelGenerator generator;
     private World world;
     private Hume player;
 
     public PlayingState(GameStateManager gsm) {
         super(gsm);
-        this.levelg = new LevelGenerator();
+        this.generator = new LevelGenerator();
         this.player = new Hume();
         this.generateLevel();
     }
@@ -69,7 +69,7 @@ public class PlayingState extends GameState {
                 this.player.setMovingRight(true);
                 break;
             case KeyEvent.VK_SPACE:
-                this.player.attack(true);
+                this.player.attack();
         }
     }
 
@@ -89,24 +89,24 @@ public class PlayingState extends GameState {
                 this.player.setMovingRight(false);
                 break;
             case KeyEvent.VK_SPACE:
-                this.player.attack(false);
+                this.player.attack();
         }
     }
 
     private void generateLevel() {
         this.generator.reset();
-        while(!this.generator.isFinished()) {
+        while(!this.generator.finished()) {
             this.generator.generate();
         }
-        this.world = new World(this.generator.getRoomsData());
+        this.world = new World(this.generator.getRoomData());
 
-        this.world.getRandomRoom().placeFeature(new Taskbar.Feature(Resources.TREES, this::generateLevel));
+        this.world.getRandomRoom().placeFeature(new Feature(Resources.TREE, this::generateLevel));
 
         for(int i=0; i<12; i++) {
             this.world.getRandomRoom().placeFeature(new Feature(Resources.CHEST, this::randomLoot));
         }
         for(int i=0; i<=25; i++) {
-            this.world.getRandomRoom().spawnGob(new Gob(Resources.GOB, 5, this.player));
+            this.world.getRandomRoom().addGob(new Gob(Resources.GOB, 5, this.player));
         }
         this.spawnPlayer();
     }
@@ -123,7 +123,7 @@ public class PlayingState extends GameState {
         for (int i = 0; i < roomIn.getWidth(); i++) {
             for (int j = 0; j < roomIn.getHeight(); j++) {
                 this.player.handleCollision(roomIn.getTileAt(i, j));
-                for (Gob gob : this.world.getRoom().getGobs()) {
+                for (Gob gob : this.world.getRoom().getGob()) {
                     gob.handleCollision(roomIn.getTileAt(i, j));
                 }
             }
@@ -145,17 +145,17 @@ public class PlayingState extends GameState {
     }
     private void playerAttack () {
         this.player.decreaseTime();
-        for (int i = 0; i < this.world.getRoom().getGobs().size(); i++) {
-            this.world.getRoom().getGobs().get(i).move();
+        for (int i = 0; i < this.world.getRoom().getGob().size(); i++) {
+            this.world.getRoom().getGob().get(i).move();
 
-            if (this.world.getRoom().getGobs().get(i).intersects(this.player)) {
+            if (this.world.getRoom().getGob().get(i).intersects(this.player)) {
                 this.player.damage(5 - 5 * this.player.getArmor() / 100);
             }
 
-            if (this.world.getRoom().getGobs().get(i).intersects(this.player.getAttackBox())) {
-                this.world.getRoom().getGobs().get(i).damage(3, this.player.getFacing());
-                if (this.world.getRoom().getGobs().get(i).getHP() <= 0) {
-                    this.world.getRoom().getGobs().remove(i);
+            if (this.world.getRoom().getGob().get(i).intersects(this.player.getAttackBox())) {
+                this.world.getRoom().getGob().get(i).damage(3, this.player.getFacing());
+                if (this.world.getRoom().getGob().get(i).getHealth() <= 0) {
+                    this.world.getRoom().getGob().remove(i);
                 }
             }
         }

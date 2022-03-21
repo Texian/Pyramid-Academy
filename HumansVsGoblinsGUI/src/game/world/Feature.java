@@ -18,7 +18,7 @@ public class Feature extends Tile {
     }
 
     public Feature(Feature copy) {
-        this(copy.getId(), copy.action);
+        this(copy.getID(), copy.action);
     }
 
     @Override

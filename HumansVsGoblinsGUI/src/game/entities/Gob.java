@@ -1,6 +1,7 @@
 package game.entities;
 
 import framework.utils.MathHelper;
+import game.world.Tile;
 
 public class Gob extends Biped{
 
@@ -24,6 +25,10 @@ public class Gob extends Biped{
 
     public Gob(Gob copy) {
         this(copy.getID(), copy.health, copy.strength, copy.target);
+    }
+    public void replaceRandomly() {
+        super.x = MathHelper.randomInt(2, 14)* Tile.SIZE;
+        super.y = MathHelper.randomInt(2, 7)*Tile.SIZE;
     }
 
     @Override

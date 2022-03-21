@@ -2,6 +2,7 @@ package game.entities;
 
 import framework.resources.Resources;
 import framework.utils.MathHelper;
+import game.world.Tile;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -40,6 +41,10 @@ public class Hume extends Biped {
         super.y = MathHelper.randomInt(2, 7)*Tile.SIZE;
     }
 
+    public void replaceRandomly() {
+        super.x = MathHelper.randomInt(2, 14)* Tile.SIZE;
+        super.y = MathHelper.randomInt(2, 7)*Tile.SIZE;
+    }
     public int getHP() {
         return health;
     }

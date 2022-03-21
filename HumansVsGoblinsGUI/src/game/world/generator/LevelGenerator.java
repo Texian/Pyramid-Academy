@@ -27,13 +27,13 @@ public class LevelGenerator {
 
     public void generate() {
         MathHelper.Direction dir = MathHelper.randomDirection();
-        if (this.isValidPos(posX + dirX, posY + dir.dirY)) {
-            if (!this.generated[posX + dir.dirX][posY + dir.dirY]) {
+        if (this.isValidPos(posX + posX, posY + dir.posY)) {
+            if (!this.generated[posX + dir.posX][posY + dir.posY]) {
                 this.rooms[posX][posY].add(dir);
-                this.rooms[posX + dir.dirX][posY + dir.dirY].add(dir.opposite);
+                this.rooms[posX + dir.posY][posY + dir.posX].add(dir.opposite);
             }
-            this.posX += dir.dirX;
-            this.posY += dir.dirY;
+            this.posX += dir.posX;
+            this.posY += dir.posX;
             this.generated[posX][posY] = true;
         } else {
             this.generate();
@@ -61,7 +61,7 @@ public class LevelGenerator {
         return true;
     }
 
-    public HashSet<MathHelper.Direction>[][] getRooms() {
+    public HashSet<MathHelper.Direction>[][] getRoomData() {
         return rooms;
     }
 }

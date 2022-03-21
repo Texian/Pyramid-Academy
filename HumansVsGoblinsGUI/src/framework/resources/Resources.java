@@ -22,6 +22,7 @@ public class Resources {
     public static final byte HEALTH = 14;
     public static final byte ARMOR = 15;
     public static final byte WEAPON = 16;
+    public static final byte TILE = 17;
 
     public static final HashMap<String, BufferedImage> ROOMS = new HashMap<>();
     public static final ArrayList<BufferedImage> TEXTURES = new ArrayList<>()>

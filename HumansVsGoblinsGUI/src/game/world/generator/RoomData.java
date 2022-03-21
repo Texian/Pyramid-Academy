@@ -10,18 +10,18 @@ import java.util.HashSet;
 public class RoomData {
     private Tile[][] tileData;
 
-    private HashSet<MathHelper.Direction> exits;
+    private HashSet<MathHelper.Direction> exit;
 
-    public RoomData(byte[][] tileData, MathHelper.Direction[]... exits) {
+    public RoomData(byte[][] tileData, MathHelper.Direction... exits) {
         this.tileData = new Tile[tileData.length][tileData[0].length];
         for (int i = 0; i < this.tileData.length; i++) {
             for (int j = 0; j < this.tileData[i].length; j++) {
                 this.tileData[i][j] = new Tile(tileData[i][j], j, i, tileData[i][j] == 1 || tileData[i][j] == 2);
             }
         }
-        this.exits = new HashSet<>();
+        this.exit = new HashSet<>();
         for (MathHelper.Direction direction : exits) {
-            this.exits.add(direction);
+            this.exit.add(direction);
         }
     }
 
@@ -33,8 +33,8 @@ public class RoomData {
         }
     }
 
-    public HashSet<MathHelper.Direction> getExits() {
-        return exits;
+    public HashSet<MathHelper.Direction> getExit() {
+        return exit;
     }
 
     public Tile getTileAt(int x, int y) {

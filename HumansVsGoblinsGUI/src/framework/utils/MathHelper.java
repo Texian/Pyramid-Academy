@@ -24,8 +24,8 @@ public class MathHelper {
         EAST(1, 0),
         WEST(-1, 0);
 
-        public final int x;
-        public final int y;
+        public final int posX;
+        public final int posY;
         public Direction opposite;
 
         static {
@@ -36,8 +36,8 @@ public class MathHelper {
         }
 
         private Direction(int x, int y) {
-            this.x = x;
-            this.y = y;
+            this.posX = x;
+            this.posY = y;
         }
     }
 }
